@@ -38,6 +38,7 @@ class LoginForm extends Component {
                         value={this.props.password}
                     />
                 </CardSection>
+                <Text style={styles.errorStyle}>{this.props.error}</Text>
                 <CardSection>
                     <Button onPress={this.onButtonPress.bind(this)}>
                         Login
@@ -47,10 +48,20 @@ class LoginForm extends Component {
         );
     }
 }
-const mapStateToProps = state => {
+const mapStateToProps = ({auth}) => {
+    const {email, password, error} = auth 
     return {
-        email: state.auth.email,
-        password: state.auth.password
+        email,
+        password,
+        error
     }
 }
+const styles = StyleSheet.create({
+    errorStyle:{
+        fontSize: 20,
+        alignSelf: 'center',
+        color: 'red'
+    }
+})
+
 export default connect(mapStateToProps, {emailChange, passwordChange, loginUser})(LoginForm);
