@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {Card, CardSection, Button, Input} from './common'
+import {Card, CardSection, Button, Input, Spinner} from './common'
 import {emailChange, passwordChange, loginUser} from '../actions'
 import {connect} from 'react-redux'
 
@@ -17,6 +17,16 @@ class LoginForm extends Component {
     onButtonPress(){
         const {email, password} = this.props
         this.props.loginUser({email, password})
+    }
+    renderButton(){
+        if(this.props.loading){
+            return <Spinner size="large"/>
+        }
+        return(
+            <Button onPress={this.onButtonPress.bind(this)}>
+                Login
+            </Button>
+        )
     }
     render() {
         return (
@@ -40,20 +50,19 @@ class LoginForm extends Component {
                 </CardSection>
                 <Text style={styles.errorStyle}>{this.props.error}</Text>
                 <CardSection>
-                    <Button onPress={this.onButtonPress.bind(this)}>
-                        Login
-                    </Button>
+                    {this.renderButton()}
                 </CardSection>
             </Card>
         );
     }
 }
 const mapStateToProps = ({auth}) => {
-    const {email, password, error} = auth 
+    const {email, password, error, loading} = auth 
     return {
         email,
         password,
-        error
+        error,
+        loading
     }
 }
 const styles = StyleSheet.create({
