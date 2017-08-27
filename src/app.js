@@ -7,6 +7,7 @@ import reducers from './reducers'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import ReduxThunk from 'redux-thunk'
+import Router from './Router'
 
 class App extends Component {
   componentDidMount(){
@@ -24,9 +25,7 @@ class App extends Component {
     const stores = createStore(reducers, {}, applyMiddleware(ReduxThunk))
     return (
       <Provider store={stores}>
-      <View>
-        <LoginForm/>
-      </View>
+          <Router/>
       </Provider>
     );
   }
