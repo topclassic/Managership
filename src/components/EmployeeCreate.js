@@ -5,6 +5,7 @@ import { Card, CardSection, Input, Button} from './common'
 import { connect } from 'react-redux'
 import { employeeUpdate, employeeCreate } from '../actions'
 import { Picker } from 'react-native'
+import EmployeeForm from './EmployeeForm'
 
 // create a component
 class EmployeeCreate extends Component {
@@ -15,43 +16,10 @@ class EmployeeCreate extends Component {
     }
     
     render() {
+        console.log(this.props.employee)
         return (
             <Card>
-                <CardSection>
-                    <Input
-                        label="Name"
-                        placeholder="Name"
-                        value={this.props.names}
-                        onChangeText={value => this.props.employeeUpdate({prop:'names',value})}
-                    />
-                </CardSection>
-
-                <CardSection>
-                    <Input
-                        label="Phone"
-                        placeholder="xxx-xxx-xxxx"
-                        value={this.props.phone}
-                        onChangeText={value => this.props.employeeUpdate({prop:'phone',value})}
-                    />
-                </CardSection>
-                
-                <CardSection style={{flexDirection:'column'}}>
-                    <Text style={styles.pickerTextStye}>Shift</Text>
-                    <Picker 
-                       
-                        selectedValue={this.props.shift}
-                        onValueChange={value => this.props.employeeUpdate({prop:'shift', value})}
-                    >
-                        <Picker.Item label="Monday" value="Monday"/>
-                        <Picker.Item label="Tuseday" value="Tuseday"/>
-                        <Picker.Item label="Wednesday" value="Wednesday"/>
-                        <Picker.Item label="Thursday" value="Thursday"/>
-                        <Picker.Item label="Friday" value="Friday"/>
-                        <Picker.Item label="Saturday" value="Saturday"/>
-                        <Picker.Item label="Sunday" value="Sunday"/>
-                    </Picker>
-                </CardSection>
-
+                <EmployeeForm {...this.props}/>
                 <CardSection>
                     <Button onPress={this.onButtonPress.bind(this)}>
                         Create
