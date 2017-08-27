@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
+import { connect } from 'react-redux'
+import { employeesFetch } from '../actions'
 
 class EmployeeList extends Component {
+    componentDidMount(){
+        this.props.employeesFetch()
+    }
     render() {
         return (
             <View>
@@ -19,4 +23,4 @@ class EmployeeList extends Component {
 const styles = StyleSheet.create({
 
 });
-export default EmployeeList;
+export default connect(null, {employeesFetch})(EmployeeList)
